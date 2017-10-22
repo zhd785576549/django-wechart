@@ -1,0 +1,39 @@
+.wechart-display-panel{
+    position: relative;
+    float: left;
+    width: 400px;
+    height: 100%;
+    border: 1px solid #cccccc;
+}
+
+.wechart-operate-panel {
+    position: relative;
+    float: left;
+    width: auto;
+    margin-left: 3%;
+    height: 100%;
+    border: 1px solid #cccccc;
+}
+
+.wechart-display-panel .wechart-menu {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #cccccc;
+    color: #cccccc;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.wechart-display-panel .wechart-menu-add {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #cccccc;
+    color: #cccccc;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
