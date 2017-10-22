@@ -26,23 +26,44 @@
 
         init(this);
 
-        var testMenuData = [
+        var testMenuData = {
+            "button":[
             {
-                "identity": "main",
-                "order": 1,
-                "name": "test1"
-            },
-            {
-                "identity": "main",
-                "order": 2,
-                "name": "test2"
-            },
-            {
-                "identity": "main",
-                "order": 3,
-                "name": "test3"
-            }
-        ]
+                "id": 4,   
+                 "type":"click",
+                 "name":"今日歌曲",
+                 "key":"V1001_TODAY_MUSIC"
+             },
+             {
+                "id": 5,
+                  "type":"click",
+                  "name":"歌手简介",
+                  "key":"V1001_TODAY_SINGER"
+             },
+             {
+                  "name":"菜单",
+                  "id": 6,
+                  "sub_button":[
+                  {
+                      "id": 1,
+                      "type":"view",
+                      "name":"搜索",
+                      "url":"http://www.soso.com/"
+                   },
+                   {
+                      "id": 2,
+                      "type":"view",
+                      "name":"视频",
+                      "url":"http://v.qq.com/"
+                   },
+                   {
+                      "id": 3,
+                      "type":"click",
+                      "name":"赞一下我们",
+                      "key":"V1001_GOOD"
+                   }]
+              }]
+        }
 
         if(settings.order == true) {
             createMenuOrder(testMenuData);
@@ -60,20 +81,34 @@
 
         
         function createMenuOrder(menuData) {
-            bottom = 0;
-            left = 0;
-            for(var i = 0, length = testMenuData.length; i < length; i++) {
-                menu = testMenuData[i];
-
-                if(menu['identity'] == 'main') {
-                    $('.wechart-display-panel').append('<span data-order="'+ (i + 1) +'" data-identify="main" class="wechart-menu">' + menu['name'] + '</span>');
-                    $('.wechart-menu[data-order="'+ (i + 1) +'"]').css('left', left + 'px');
-                    $('.wechart-menu[data-order="'+ (i + 1) +'"]').css('bottom', '0px');
+            var button = menuData['button'];
+            if(button != undefined) {
+                var mainMenuLeft = 0;
+                for(i = 0; i <button.length; i++ ) {
+                    var menu = button[i];
+                    var subButton = menu['sub_button'];
+                    $('.wechart-display-panel').append('<span data-id="' + menu['id'] + '" class="wechart-menu">' + menu['name'] + '</span>');
+                    $('.wechart-menu[data-id="' + menu['id'] + '"]').css('left', mainMenuLeft + 'px');
+                    $('.wechart-menu[data-id="' + menu['id'] + '"]').css('bottom', '0px');
+                    mainMenuLeft += 100;
+                    if(subButton != undefined) {
+                        var position = $('.wechart-menu[data-id="' + menu['id'] + '"]').position();
+                        var left = position.left;
+                        var top = position.top;
+                        for(j = 0; j < subButton.length; j++) {
+                            var subMenu = subButton[j];
+                            top = top - 50;
+                            $('.wechart-display-panel').append('<span data-id="' + subMenu['id'] + '" class="wechart-menu">' + subMenu['name'] + '</span>');
+                            $('.wechart-menu[data-id="' + subMenu['id'] + '"]').css('top', top + 'px');
+                            $('.wechart-menu[data-id="' + subMenu['id'] + '"]').css('left', left + 'px');
+                        }
+                    }
                 }
-                left = left + 100;
             }
-            $('.wechart-display-panel').append('<span class="wechart-menu-add">+</span>');
-            $('.wechart-menu-add').css('left', left + 'px');
         }
     }
 })(jQuery); 
+
+function addMainMenu(object) {
+    alert("添加菜单");
+}
